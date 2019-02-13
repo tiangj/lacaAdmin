@@ -30,8 +30,8 @@ public class LacaProductStock extends Model<LacaProductStock> {
     /**
      * 进
      */
-    @TableField("income_ num")
-    private Integer income num;
+    @TableField("income_num")
+    private Integer incomeNum;
     /**
      * 销
      */
@@ -70,12 +70,12 @@ public class LacaProductStock extends Model<LacaProductStock> {
         this.productId = productId;
     }
 
-    public Integer getIncome num() {
-        return income num;
+    public Integer getIncomeNum() {
+        return incomeNum;
     }
 
-    public void setIncome num(Integer income num) {
-        this.income num = income num;
+    public void setIncomeNum(Integer incomeNum) {
+        this.incomeNum = incomeNum;
     }
 
     public Integer getOutNum() {
@@ -138,7 +138,7 @@ public class LacaProductStock extends Model<LacaProductStock> {
 
     public static final String PRODUCT_ID = "product_id";
 
-    public static final String INCOME_ NUM = "income_ num";
+    public static final String INCOME_NUM = "income_num";
 
     public static final String OUT_NUM = "out_num";
 
@@ -164,7 +164,7 @@ public class LacaProductStock extends Model<LacaProductStock> {
         return "LacaProductStock{" +
         "id=" + id +
         ", productId=" + productId +
-        ", income num=" + income num +
+        ", incomeNum=" + incomeNum +
         ", outNum=" + outNum +
         ", exsitNum=" + exsitNum +
         ", createDate=" + createDate +

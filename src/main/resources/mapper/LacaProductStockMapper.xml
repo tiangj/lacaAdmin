@@ -6,7 +6,7 @@
     <resultMap id="BaseResultMap" type="com.example.lacaPackage.entity.LacaProductStock">
         <id column="id" property="id" />
         <result column="product_id" property="productId" />
-        <result column="income_ num" property="income num" />
+        <result column="income_num" property="incomeNum" />
         <result column="out_num" property="outNum" />
         <result column="exsit_num" property="exsitNum" />
         <result column="create_date" property="createDate" />
@@ -18,7 +18,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, product_id AS productId, income_ num AS income num, out_num AS outNum, exsit_num AS exsitNum, create_date AS createDate, create_user AS createUser, update_date AS updateDate, update_user AS updateUser, delete_flag AS deleteFlag
+        id, product_id AS productId, income_num AS incomeNum, out_num AS outNum, exsit_num AS exsitNum, create_date AS createDate, create_user AS createUser, update_date AS updateDate, update_user AS updateUser, delete_flag AS deleteFlag
     </sql>
 
 </mapper>

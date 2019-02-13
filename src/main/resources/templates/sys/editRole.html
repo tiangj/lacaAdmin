@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/lib/layui/layui.js}" charset="utf-8"></script>
+    <script th:src="@{/sys/editRole.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/font.css}">
+    <link rel="stylesheet" th:href="@{/css/xadmin.css}">
+    <link rel="stylesheet" th:href="@{/lib/layui/css/layui.css}">
+    <script type="text/javascript" th:inline="javascript">
+        /*<![CDATA[*/
+        ctxPath = /*[[@{/}]]*/ '';
+        /*]]>*/
+    </script>
+</head>
+<body>
+    <form class="layui-form" lay-filter="example">
+        <input type="hidden" th:name="userId" th:value="${sysUser.id}">
+        <div class="layui-form-item">
+            <label for="name" class="layui-form-label">
+                <span class="x-red">*</span>昵称
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="name" name="name" readonly="readonly"
+                       autocomplete="off" class="layui-input" th:value="${sysUser.name}">
+            </div>
+        </div>
+
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">权限</label>
+            <div class="layui-input-block">
+                <input th:name="roleId"   type="checkbox" th:each="list,userStat:${listRole}" th:title="${list.roleName}" th:value="${list.roleId}" th:checked="${list.isExsit==1}">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit="" lay-filter="add">立即提交</button>
+                <!--<button type="reset" class="layui-btn layui-btn-primary">重置</button>-->
+            </div>
+        </div>
+
+    </form>
+</body>
+</html>

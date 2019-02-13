@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.lacaPackage.mapper.LacaProductOrderMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.example.lacaPackage.entity.LacaProductOrder">
+        <id column="id" property="id" />
+        <result column="total_num" property="totalNum" />
+        <result column="sale_type" property="saleType" />
+        <result column="join_shop" property="joinShop" />
+        <result column="customer_name" property="customerName" />
+        <result column="designer" property="designer" />
+        <result column="user_shop_fee" property="userShopFee" />
+        <result column="post_way" property="postWay" />
+        <result column="total_price" property="totalPrice" />
+        <result column="wx_pay_price" property="wxPayPrice" />
+        <result column="alipay_pay_price" property="alipayPayPrice" />
+        <result column="cash_pay_price" property="cashPayPrice" />
+        <result column="card_pay_price" property="cardPayPrice" />
+        <result column="status" property="status" />
+        <result column="remark" property="remark" />
+        <result column="other" property="other" />
+        <result column="create_date" property="createDate" />
+        <result column="create_user" property="createUser" />
+        <result column="update_date" property="updateDate" />
+        <result column="update_user" property="updateUser" />
+        <result column="deleteFlag" property="deleteFlag" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, total_num AS totalNum, sale_type AS saleType, join_shop AS joinShop, customer_name AS customerName, designer, user_shop_fee AS userShopFee, post_way AS postWay, total_price AS totalPrice, wx_pay_price AS wxPayPrice, alipay_pay_price AS alipayPayPrice, cash_pay_price AS cashPayPrice, card_pay_price AS cardPayPrice, status, remark, other, create_date AS createDate, create_user AS createUser, update_date AS updateDate, update_user AS updateUser, deleteFlag
+    </sql>
+
+</mapper>

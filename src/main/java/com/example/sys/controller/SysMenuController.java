@@ -3,12 +3,9 @@ package com.example.sys.controller;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
-import com.example.config.ConstantUtil;
 import com.example.sys.DO.SysMenusListDO;
 import com.example.sys.entity.SysMenu;
 import com.example.sys.service.ISysMenuService;
-import com.example.wwq.DO.ProductDO;
-import com.example.wwq.entity.WwqSort;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -17,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;

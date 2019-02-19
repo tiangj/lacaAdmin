@@ -4,15 +4,21 @@ layui.use('table', function () {
     var table = layui.table;
     //方法级渲染
     table.render({
-        elem: '#LAY_table_productType'
-        , url: ctxPath + 'lacaProductType/listData'
+        elem: '#LAY_table_product'
+        , url: ctxPath + 'lacaProduct/listData'
         , cols: [[
             {field: 'id', hide: true}
-            , {field: 'code', title: '产品类型code', width: '20%', sort: true}
-            , {field: 'name', title: '产品类型名称', width: '20%', sort: true}
-            , {field: 'createDate', title: '创建时间', width: '20%', sort: true}
+            , {field: 'productTypeName', title: '产品类型', width: '10%', sort: true}
+            , {field: 'productName', title: '产品类型名称', width: '10%', sort: true}
+            , {field: 'productSize', title: '大小(型号)', width: '10%', sort: true}
+            , {field: 'productColor', title: '颜色', width: '10%', sort: true}
+            , {field: 'remark', title: '备注', width: '10%', sort: true}
+            , {field: 'incomeNum', title: '进', width: '10%', sort: true}
+            , {field: 'outNum', title: '销', width: '10%', sort: true}
+            , {field: 'exsitNum', title: '存', width: '10%', sort: true}
+            , {field: 'createDate', title: '创建时间', width: '10%', sort: true}
             , {
-                filed: 'cz', title: '操作', width: '20%', templet: function (d) {
+                filed: 'cz', title: '操作', width: '10%', templet: function (d) {
                     var html = "";
                     html += '<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>';
                     html += '<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>';
@@ -28,13 +34,13 @@ layui.use('table', function () {
         }
     });
     //监听工具条
-    table.on('tool(productType)', function (obj) {
+    table.on('tool(product)', function (obj) {
         var data = obj.data;
         if (obj.event === 'del') {
             layer.confirm('真的删除行么', function (index) {
 
                 $.ajax({
-                    url: ctxPath + 'lacaProductType/delProductType',
+                    url: ctxPath + 'lacaProduct/delProduct',
                     method: 'post',
                     data: {id: data.id},
                     dataType: 'JSON',
@@ -52,7 +58,7 @@ layui.use('table', function () {
 
             });
         }else if (obj.event === 'edit') {
-            x_admin_show('修改配送方式', 'lacaProductType/toAdd?id=' + data.id, 800, 600);
+            x_admin_show('修改商品信息', 'lacaProduct/toAdd?id=' + data.id, 800, 600);
             //图片上传页面
         }
     });
@@ -73,7 +79,7 @@ layui.use('table', function () {
         }
     };
 
-    $('.productTypeTable .layui-btn').on('click', function () {
+    $('.productTable .layui-btn').on('click', function () {
         var type = $(this).data('type');
         active[type] ? active[type].call(this) : '';
     });

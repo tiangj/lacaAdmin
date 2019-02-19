@@ -18,20 +18,20 @@
 </head>
 <body class="layui-anim layui-anim-up">
 <div class="x-nav"></div>
-<div class="productTypeTable">
+<div class="productTable">
     <div class="layui-row">
         <div class="layui-col-md12 x-so">
             <label class="layui-col-md3 layui-col-lg-offset1">
-                <span>商品类型名称:</span>
-                <input type="text" id="name" name="name"  placeholder="请输入产品类型" autocomplete="off" class="layui-input">
+                <span>商品名称:</span>
+                <input type="text" id="name" name="name"  placeholder="请输入产品名称" autocomplete="off" class="layui-input">
             </label>
             <button style="margin-right: 10px;" class="layui-btn" data-type="reload"><i class="layui-icon">&#xe615;</i></button>
         </div>
     </div>
 </div>
 <xblock>
-    <button class="layui-btn"  onclick="x_admin_show('新增配送方式','productType/toAdd',800,600)">新增</button>
+    <button class="layui-btn"  onclick="x_admin_show('新增商品','lacaProduct/toAdd',800,600)">新增</button>
 </xblock>
-<table class="layui-hide" id="LAY_table_productType" lay-filter="productType" ></table>
+<table class="layui-hide" id="LAY_table_product" lay-filter="product" ></table>
 </body>
 </html>

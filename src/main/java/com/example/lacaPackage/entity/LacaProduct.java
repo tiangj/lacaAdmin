@@ -5,7 +5,10 @@ import java.io.Serializable;
 import java.util.Date;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.IdType;
+
 import java.io.Serializable;
 
 /**
@@ -21,6 +24,7 @@ public class LacaProduct extends Model<LacaProduct> {
 
     private static final long serialVersionUID = 1L;
 
+    @TableId(value="id", type= IdType.AUTO)
     private Integer id;
     /**
      * 产品类型id
@@ -41,7 +45,7 @@ public class LacaProduct extends Model<LacaProduct> {
      * 颜色
      */
     @TableField("product_color")
-    private Integer productColor;
+    private String productColor;
     /**
      * 描述
      */
@@ -90,11 +94,11 @@ public class LacaProduct extends Model<LacaProduct> {
         this.productSize = productSize;
     }
 
-    public Integer getProductColor() {
+    public String getProductColor() {
         return productColor;
     }
 
-    public void setProductColor(Integer productColor) {
+    public void setProductColor(String productColor) {
         this.productColor = productColor;
     }
 

@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.io.Serializable;
 
@@ -34,6 +35,7 @@ public class LacaProductType extends Model<LacaProductType> {
      * 产品类型
      */
     private String name;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @TableField("create_date")
     private Date createDate;
     @TableField("create_user")

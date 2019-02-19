@@ -81,6 +81,15 @@ public class LacaProductOrderController {
     }
 
     @ResponseBody
+    @RequestMapping("getAllLacaProduct")
+    public List<LacaProduct> getAllLacaProduct(){
+        //获取所有的商品
+        EntityWrapper<LacaProduct> entityWrapper=new EntityWrapper<>();
+        entityWrapper.eq("delete_flag",0);
+        return lacaProductService.selectList(entityWrapper);
+    }
+
+    @ResponseBody
     @RequestMapping("saveOrder")
     public Map<String,Object> saveOrder(){
         return null;

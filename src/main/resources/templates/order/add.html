@@ -24,17 +24,128 @@
     <input type="hidden" th:field="*{id}"/>
 
     <div class="layui-form-item">
-        <label class="layui-form-label">商品类型code</label>
-        <div class="layui-input-block">
-            <input type="text" name="name" th:field="*{code}" autocomplete="off" class="layui-input">
+        <label class="layui-form-label">订单类型</label>
+        <div class="layui-inline">
+            <select name="saleType" lay-verify="required">
+                <option value="1">进</option>
+                <option value="2">出</option>
+            </select>
         </div>
     </div>
+
+
+    <div id="productDiv">
+        <div class="layui-form-item" id="prductItem_1">
+            <div class="layui-inline">
+                <label class="layui-form-label">产品信息</label>
+                <div class="layui-input-block">
+                    <select id="productId_1" name="productId_1" lay-verify="required">
+                        <option th:each="list,userStat:${lacaProductList}" th:value="${list.id}" th:text="${list.productName}"
+                                th:selected="${list.id == orderDO.productId}"></option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">个数</label>
+                <div class="layui-input-block">
+                    <input type="text" id="productNum_1" name="productNum_1" th:value="*{productNum}" autocomplete="off" class="layui-input" lay-verify="number">
+                </div>
+            </div>
+
+            <div class="layui-inline"><a href="javascript:void (0)" onclick="addProductItem()" style="font-size: 30px">+</a></div>
+
+        </div>
+
+    </div>
+
     <div class="layui-form-item">
-        <label class="layui-form-label">商品类型名称</label>
-        <div class="layui-input-block">
-            <input type="text" name="name" th:field="*{name}" autocomplete="off" placeholder="商品类型名称" class="layui-input">
+        <div class="layui-inline">
+            <label class="layui-form-label">加盟商</label>
+            <div class="layui-input-inline">
+                <input type="text" name="joinShop" th:field="*{joinShop}" autocomplete="off" class="layui-input" >
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">客户姓名</label>
+            <div class="layui-input-inline">
+                <input type="text" name="customerName" th:field="*{customerName}" autocomplete="off" class="layui-input">
+            </div>
         </div>
     </div>
+
+
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">设计师</label>
+            <div class="layui-input-inline">
+                <input type="text" name="designer" th:field="*{designer}" autocomplete="off" class="layui-input" >
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">用店费</label>
+            <div class="layui-input-inline">
+                <input type="text" name="customerName" th:field="*{userShopFee}" autocomplete="off" class="layui-input" lay-verify="number">
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">现金</label>
+            <div class="layui-input-inline">
+                <input type="text" name="cashPayPrice" th:field="*{cashPayPrice}" autocomplete="off" class="layui-input" lay-verify="number">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">刷卡</label>
+            <div class="layui-input-inline">
+                <input type="text" name="cardPayPrice" th:field="*{cardPayPrice}" autocomplete="off" class="layui-input" lay-verify="number">
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">微信</label>
+            <div class="layui-input-inline">
+                <input type="text" name="wxPayPrice" th:field="*{wxPayPrice}" autocomplete="off" class="layui-input" lay-verify="number">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">支付宝</label>
+            <div class="layui-input-inline">
+                <input type="text" name="customerName" th:field="*{alipayPayPrice}" autocomplete="off" class="layui-input" lay-verify="number">
+            </div>
+        </div>
+    </div>
+
+
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">总金额</label>
+            <div class="layui-input-inline">
+                <input type="text" name="totalPrice" th:field="*{totalPrice}" autocomplete="off" class="layui-input" lay-verify="number">
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">支付方式</label>
+        <div class="layui-input-block">
+            <input type="checkbox" name="postWay"  title="现金" value="1">
+            <input type="checkbox" name="postWay"  title="刷卡" value="2">
+            <input type="checkbox" name="postWay"  title="微信" value="3">
+            <input type="checkbox" name="postWay"  title="支付宝" value="4">
+        </div>
+    </div>
+
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">备注</label>
+        <div class="layui-input-block">
+            <textarea placeholder="请输入备注" class="layui-textarea" th:field="*{remark}"></textarea>
+        </div>
+    </div>
+
 
     <div class="layui-form-item">
         <div class="layui-input-block">

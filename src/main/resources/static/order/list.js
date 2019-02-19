@@ -30,7 +30,7 @@ layui.use('table', function () {
     table.on('tool(productOrder)', function (obj) {
         var data = obj.data;
         if (obj.event === 'edit') {
-            x_admin_show('修改订单信息', 'lacaProductOrder/toAdd?id=' + data.id, 800, 600);
+            x_admin_show('修改订单信息', 'lacaProductOrder/toAdd?id=' + data.id, 900, 750);
         }
     });
 

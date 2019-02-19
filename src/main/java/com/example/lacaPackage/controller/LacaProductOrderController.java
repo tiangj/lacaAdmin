@@ -39,7 +39,7 @@ public class LacaProductOrderController {
 
     @RequestMapping("list")
     public String list(){
-        return "product/list";
+        return "order/list";
     }
 
     @ResponseBody

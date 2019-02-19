@@ -35,6 +35,7 @@ public class LacaProductOrderController {
     @Autowired
     private ILacaProductOrderService productOrderService;
 
+    @Autowired
     private ILacaProductService lacaProductService;
 
     @RequestMapping("list")

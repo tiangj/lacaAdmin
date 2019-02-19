@@ -116,6 +116,16 @@ public class LacaProductOrder extends Model<LacaProductOrder> {
     private String updateUser;
     private Integer deleteFlag;
 
+    @TableField("inner_order_id")
+    private String innerOrderId;
+
+    public String getInnerOrderId() {
+        return innerOrderId;
+    }
+
+    public void setInnerOrderId(String innerOrderId) {
+        this.innerOrderId = innerOrderId;
+    }
 
     public Integer getId() {
         return id;

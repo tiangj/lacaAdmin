@@ -7,9 +7,9 @@ layui.use('table', function () {
         elem: '#LAY_table_product'
         , url: ctxPath + 'lacaProduct/listData'
         , cols: [[
-            {field: 'id', hide: true}
+            {field: 'productId', hide: true}
             , {field: 'productTypeName', title: '产品类型', width: '10%', sort: true}
-            , {field: 'productName', title: '产品类型名称', width: '10%', sort: true}
+            , {field: 'productName', title: '产品名称', width: '10%', sort: true}
             , {field: 'productSize', title: '大小(型号)', width: '10%', sort: true}
             , {field: 'productColor', title: '颜色', width: '10%', sort: true}
             , {field: 'remark', title: '备注', width: '10%', sort: true}
@@ -30,7 +30,7 @@ layui.use('table', function () {
         , page: true
         , height: height
         , done: function (res, curr, count) {
-            $("[data-field='id']").css('display', 'none');
+            $("[data-field='productId']").css('display', 'none');
         }
     });
     //监听工具条
@@ -42,7 +42,7 @@ layui.use('table', function () {
                 $.ajax({
                     url: ctxPath + 'lacaProduct/delProduct',
                     method: 'post',
-                    data: {id: data.id},
+                    data: {id: data.productId},
                     dataType: 'JSON',
                     async: true,
                     success: function (res) {
@@ -58,7 +58,7 @@ layui.use('table', function () {
 
             });
         }else if (obj.event === 'edit') {
-            x_admin_show('修改商品信息', 'lacaProduct/toAdd?id=' + data.id, 800, 600);
+            x_admin_show('修改商品信息', 'lacaProduct/toAdd?id=' + data.productId, 800, 600);
             //图片上传页面
         }
     });

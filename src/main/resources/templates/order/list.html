@@ -9,7 +9,7 @@
     <link rel="stylesheet" th:href="@{/css/font.css}">
     <link rel="stylesheet" th:href="@{/css/xadmin.css}">
     <link rel="stylesheet" th:href="@{/lib/layui/css/layui.css}">
-    <script th:src="@{/productType/list.js}"></script>
+    <script th:src="@{/order/list.js}"></script>
     <script type="text/javascript" th:inline="javascript">
         /*<![CDATA[*/
         ctxPath = /*[[@{/}]]*/ '';
@@ -18,7 +18,7 @@
 </head>
 <body class="layui-anim layui-anim-up">
 <div class="x-nav"></div>
-<div class="productTable">
+<div class="productOrderTable">
     <div class="layui-row">
         <div class="layui-col-md12 x-so">
             <label class="layui-col-md3 layui-col-lg-offset1">
@@ -30,8 +30,8 @@
     </div>
 </div>
 <xblock>
-    <button class="layui-btn"  onclick="x_admin_show('新增产品','lacaProduct/toAdd',800,600)">新增</button>
+    <button class="layui-btn"  onclick="x_admin_show('新增订单','lacaProductOrder/toAdd',800,600)">新增</button>
 </xblock>
-<table class="layui-hide" id="LAY_table_product" lay-filter="product" ></table>
+<table class="layui-hide" id="LAY_table_productOrder" lay-filter="productOrder" ></table>
 </body>
 </html>

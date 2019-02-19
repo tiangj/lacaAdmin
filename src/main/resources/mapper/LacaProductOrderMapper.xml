@@ -25,11 +25,12 @@
         <result column="update_date" property="updateDate" />
         <result column="update_user" property="updateUser" />
         <result column="deleteFlag" property="deleteFlag" />
+        <result column="inner_order_id" property="innerOrderId"></result>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, total_num AS totalNum, sale_type AS saleType, join_shop AS joinShop, customer_name AS customerName, designer, user_shop_fee AS userShopFee, post_way AS postWay, total_price AS totalPrice, wx_pay_price AS wxPayPrice, alipay_pay_price AS alipayPayPrice, cash_pay_price AS cashPayPrice, card_pay_price AS cardPayPrice, status, remark, other, create_date AS createDate, create_user AS createUser, update_date AS updateDate, update_user AS updateUser, deleteFlag
+        id, total_num AS totalNum, sale_type AS saleType, join_shop AS joinShop, customer_name AS customerName, designer, user_shop_fee AS userShopFee, post_way AS postWay, total_price AS totalPrice, wx_pay_price AS wxPayPrice, alipay_pay_price AS alipayPayPrice, cash_pay_price AS cashPayPrice, card_pay_price AS cardPayPrice, status, remark, other, create_date AS createDate, create_user AS createUser, update_date AS updateDate, update_user AS updateUser, deleteFlag,inner_order_id as innerOrderId
     </sql>
 
 </mapper>

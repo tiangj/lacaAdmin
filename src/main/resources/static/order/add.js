@@ -114,3 +114,19 @@ function addProductItem() {
 function delProductItem(index) {
     $("#prductItem_"+index).remove();
 }
+
+function selectCustomerInfo() {
+    var customerName=$("#customerName").val();
+    x_admin_show('客户信息', 'lacaProductOrder/toSelectCustomerInfo?customerName=' + customerName, 800, 600);
+}
+
+function getProductOrderInfo() {
+    $.ajax({
+        url:ctxPath+'lacaProductOrder/getProductOrderInfo',
+        method:'post',
+        async:true,
+        success:function(res){
+
+        }
+    })
+}

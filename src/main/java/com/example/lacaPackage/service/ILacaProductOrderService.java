@@ -6,6 +6,8 @@ import com.example.lacaPackage.DO.ProductDO;
 import com.example.lacaPackage.entity.LacaProductOrder;
 import com.baomidou.mybatisplus.service.IService;
 
+import java.util.Map;
+
 /**
  * <p>
  *  服务类
@@ -19,5 +21,7 @@ public interface ILacaProductOrderService extends IService<LacaProductOrder> {
     Page<OrderDO> getAllOrderList(Page<OrderDO> page, OrderDO orderDO);
 
     OrderDO getOrderInfoById(String id);
+
+    Map<String,Object> saveOrder(OrderDO orderDO,String userId) throws Exception;
 
 }

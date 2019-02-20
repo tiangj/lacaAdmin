@@ -3,9 +3,11 @@ package com.example.lacaPackage.controller;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.example.config.ConstantUtil;
 import com.example.lacaPackage.DO.OrderDO;
-import com.example.lacaPackage.DO.ProductDO;
 import com.example.lacaPackage.entity.LacaProduct;
+import com.example.lacaPackage.entity.LacaProductOrder;
+import com.example.lacaPackage.entity.LacaProductOrderDetail;
 import com.example.lacaPackage.service.ILacaProductOrderService;
 import com.example.lacaPackage.service.ILacaProductService;
 import org.apache.commons.lang.StringUtils;
@@ -16,9 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import java.util.*;
 
 /**
  * <p>
@@ -91,8 +92,67 @@ public class LacaProductOrderController {
 
     @ResponseBody
     @RequestMapping("saveOrder")
-    public Map<String,Object> saveOrder(){
-        return null;
+    public Map<String,Object> saveOrder(OrderDO orderDO, HttpServletRequest request){
+        Map<String,Object> result=new HashMap<>();
+
+        String userId=request.getSession().getAttribute(ConstantUtil.SEESION_USER_ID).toString();
+        //不同产品的类型数
+        Integer prductTypeSize=Integer.parseInt(request.getParameter("prductTypeSize"));
+
+        List<LacaProductOrderDetail> productOrderDetailList=new ArrayList<>();
+        Integer totalNum=0;
+        for (int i=1;i<=prductTypeSize;i++){
+            String productId=request.getParameter("productId_"+i);
+            Integer productNum=Integer.parseInt(request.getParameter("productNum_"+i));
+
+            LacaProductOrderDetail lacaProductOrderDetail=new LacaProductOrderDetail();
+            lacaProductOrderDetail.setProductId(productId);
+            lacaProductOrderDetail.setProductNum(productNum);
+            lacaProductOrderDetail.setCreateDate(new Date());
+            lacaProductOrderDetail.setCreateUser(userId);
+            lacaProductOrderDetail.setUpdateDate(new Date());
+            lacaProductOrderDetail.setUpdateUser(userId);
+            //lacaProductOrderDetail.setProductPrice();
+            productOrderDetailList.add(lacaProductOrderDetail);
+            totalNum+=productNum;
+        }
+        orderDO.setTotalNum(totalNum);
+        orderDO.setOrderDetailList(productOrderDetailList);
+        try {
+            result=productOrderService.saveOrder(orderDO,userId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.put("code",0);
+            result.put("msg","操作失败");
+        }
+        return result;
+    }
+
+    /****
+     * 跳转至选择用户订单列表
+     * @param model
+     * @param customerName
+     * @return
+     */
+    @RequestMapping("toSelectCustomerInfo")
+    public String toSelectCustomerInfo(Model model,String customerName){
+        model.addAttribute("customerName",customerName);
+        return "order/selectCustomerInfo";
+    }
+
+    /****
+     *根据客户姓名获取订单信息
+     * @param customerName
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("getProductOrderInfo")
+    public List<LacaProductOrder> getProductOrderInfo(String customerName){
+        EntityWrapper<LacaProductOrder> entityWrapper=new EntityWrapper<>();
+        entityWrapper.eq("customer_name",customerName);
+        entityWrapper.eq("deleteFlag",0);
+        List<LacaProductOrder> list=productOrderService.selectList(entityWrapper);
+        return list;
     }
 
 }

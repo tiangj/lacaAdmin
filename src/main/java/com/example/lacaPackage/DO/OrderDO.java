@@ -1,14 +1,39 @@
 package com.example.lacaPackage.DO;
 
 import com.example.lacaPackage.entity.LacaProductOrder;
+import com.example.lacaPackage.entity.LacaProductOrderDetail;
+
+import java.util.List;
 
 public class OrderDO extends LacaProductOrder {
+
+    private List<LacaProductOrderDetail> orderDetailList;
 
     private String productId;
 
     private String producName;
 
     private Integer productNum;
+
+    private Integer totalNum;
+
+    @Override
+    public Integer getTotalNum() {
+        return totalNum;
+    }
+
+    @Override
+    public void setTotalNum(Integer totalNum) {
+        this.totalNum = totalNum;
+    }
+
+    public List<LacaProductOrderDetail> getOrderDetailList() {
+        return orderDetailList;
+    }
+
+    public void setOrderDetailList(List<LacaProductOrderDetail> orderDetailList) {
+        this.orderDetailList = orderDetailList;
+    }
 
     public String getProducName() {
         return producName;

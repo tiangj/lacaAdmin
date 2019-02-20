@@ -84,7 +84,7 @@
         <div class="layui-inline">
             <label class="layui-form-label">用店费</label>
             <div class="layui-input-inline">
-                <input type="text" name="customerName" th:field="*{userShopFee}" autocomplete="off" class="layui-input" lay-verify="number">
+                <input type="text" name="userShopFee" th:field="*{userShopFee}" autocomplete="off" class="layui-input" lay-verify="number">
             </div>
         </div>
     </div>
@@ -139,10 +139,28 @@
         </div>
     </div>
 
+    <div class="layui-form-item">
+        <label class="layui-form-label">状态</label>
+        <div class="layui-input-block">
+            <select name="status" lay-verify="required">
+                <option value="1">借货</option>
+                <option value="2">还货</option>
+            </select>
+        </div>
+    </div>
+
     <div class="layui-form-item layui-form-text">
         <label class="layui-form-label">备注</label>
         <div class="layui-input-block">
             <textarea placeholder="请输入备注" class="layui-textarea" th:field="*{remark}"></textarea>
+        </div>
+    </div>
+
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">关联订单</label>
+        <div class="layui-input-block">
+            <input type="hidden" name="innerOrderId"/>
+            <input type="button" onclick="selectCustomerInfo()"/>
         </div>
     </div>
 

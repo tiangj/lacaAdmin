@@ -132,10 +132,10 @@
     <div class="layui-form-item">
         <label class="layui-form-label">支付方式</label>
         <div class="layui-input-block">
-            <input type="checkbox" name="postWay"  title="现金" value="1">
-            <input type="checkbox" name="postWay"  title="刷卡" value="2">
-            <input type="checkbox" name="postWay"  title="微信" value="3">
-            <input type="checkbox" name="postWay"  title="支付宝" value="4">
+            <input type="checkbox" name="postWay"  title="现金" value="1" th:checked="${#strings.contains(orderDO.postWay,'1')}"/>
+            <input type="checkbox" name="postWay"  title="刷卡" value="2" th:checked="${#strings.contains(orderDO.postWay,'2')}"/>
+            <input type="checkbox" name="postWay"  title="微信" value="3" th:checked="${#strings.contains(orderDO.postWay,'3')}"/>
+            <input type="checkbox" name="postWay"  title="支付宝" value="4" th:checked="${#strings.contains(orderDO.postWay,'4')}"/>
         </div>
     </div>
 

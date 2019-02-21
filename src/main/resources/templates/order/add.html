@@ -159,7 +159,7 @@
     <div class="layui-form-item layui-form-text">
         <label class="layui-form-label">关联订单</label>
         <div class="layui-input-block">
-            <input type="text" name="innerOrderId" id="innerOrderId" />
+            <input type="text" name="innerOrderId" id="innerOrderId"  th:field="*{innerOrderId}"/>
             <input type="button" onclick="selectCustomerInfo()" value="选择"/>
         </div>
     </div>

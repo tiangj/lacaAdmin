@@ -147,12 +147,19 @@ public class LacaProductOrderController {
      */
     @ResponseBody
     @RequestMapping("getProductOrderInfo")
-    public List<LacaProductOrder> getProductOrderInfo(String customerName){
+    public Map<String,Object>  getProductOrderInfo(String customerName){
         EntityWrapper<LacaProductOrder> entityWrapper=new EntityWrapper<>();
-        entityWrapper.eq("customer_name",customerName);
+        if(StringUtils.isNotBlank(customerName)){
+            entityWrapper.eq("customer_name",customerName);
+        }
         entityWrapper.eq("deleteFlag",0);
         List<LacaProductOrder> list=productOrderService.selectList(entityWrapper);
-        return list;
+        Map<String,Object> result=new HashMap<>();
+        result.put("code",0);
+        result.put("msg","");
+        result.put("count",list.size());
+        result.put("data",list);
+        return result;
     }
 
 }

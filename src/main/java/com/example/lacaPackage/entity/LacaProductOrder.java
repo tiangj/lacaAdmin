@@ -8,8 +8,8 @@ import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
-import java.io.Serializable;
 
 /**
  * <p>
@@ -97,7 +97,9 @@ public class LacaProductOrder extends Model<LacaProductOrder> {
      * 其他
      */
     private String other;
+
     @TableField("create_date")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date createDate;
     /**
      * 创建人
@@ -107,6 +109,7 @@ public class LacaProductOrder extends Model<LacaProductOrder> {
     /**
      * 更新时间
      */
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @TableField("update_date")
     private Date updateDate;
     /**
@@ -114,6 +117,8 @@ public class LacaProductOrder extends Model<LacaProductOrder> {
      */
     @TableField("update_user")
     private String updateUser;
+
+    @TableField("deleteFlag")
     private Integer deleteFlag;
 
     @TableField("inner_order_id")

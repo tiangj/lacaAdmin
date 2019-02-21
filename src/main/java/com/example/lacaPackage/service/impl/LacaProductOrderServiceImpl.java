@@ -11,6 +11,7 @@ import com.example.lacaPackage.mapper.LacaProductOrderMapper;
 import com.example.lacaPackage.mapper.LacaProductStockMapper;
 import com.example.lacaPackage.service.ILacaProductOrderService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -69,7 +70,11 @@ public class LacaProductOrderServiceImpl extends ServiceImpl<LacaProductOrderMap
             lacaProductOrder.setTotalPrice(orderDO.getTotalPrice());
             lacaProductOrder.setPostWay(orderDO.getPostWay());
             lacaProductOrder.setRemark(orderDO.getRemark());
-            lacaProductOrder.setStatus(orderDO.getStatus());
+            if(StringUtils.isNotBlank(orderDO.getInnerOrderId())){
+                lacaProductOrder.setStatus("3");
+            }else{
+                lacaProductOrder.setStatus(orderDO.getStatus());
+            }
             lacaProductOrder.setInnerOrderId(orderDO.getInnerOrderId());
             //保存或者订单主表
             if(orderDO.getId()!=null){

@@ -1,3 +1,6 @@
+var height = $(document.body).height() * 0.8;
+
+
 layui.use('table', function () {
     var table = layui.table;
     //方法级渲染
@@ -64,5 +67,10 @@ layui.use('table', function () {
  * @param orderId
  */
 function setInnerOrderId(orderId) {
-    
+    parent.$("#layui-layer-iframe1").contents().find('#innerOrderId').val(orderId);
+    var index=parent.layer.getFrameIndex(window.name);
+    parent.layer.close(index);
+    console.log(parent.$("#layui-layer-iframe1").contents())
+    $("#innerOrderId").val(orderId);
+
 }

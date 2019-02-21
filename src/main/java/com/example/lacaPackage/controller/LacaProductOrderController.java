@@ -72,6 +72,9 @@ public class LacaProductOrderController {
             orderDO=productOrderService.getOrderInfoById(id);
         }
         model.addAttribute("orderDO",orderDO);
+        if(orderDO.getPostWay()==null){
+           orderDO.setPostWay("");
+        }
         //获取所有的商品
         EntityWrapper<LacaProduct> entityWrapper=new EntityWrapper<>();
         entityWrapper.eq("delete_flag",0);

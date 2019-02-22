@@ -34,14 +34,13 @@
     </div>
 
 
-    <div id="productDiv">
+    <div id="productDiv" th:if="${exsitOrder==0}">
         <div class="layui-form-item" id="prductItem_1">
             <div class="layui-inline">
                 <label class="layui-form-label">产品信息</label>
                 <div class="layui-input-block">
                     <select id="productId_1" name="productId_1" lay-verify="required">
-                        <option th:each="list,userStat:${lacaProductList}" th:value="${list.id}" th:text="${list.productName}"
-                                th:selected="${list.id == orderDO.productId}"></option>
+                        <option th:each="list,userStat:${lacaProductList}" th:value="${list.id}" th:text="${list.productName}"></option>
                     </select>
                 </div>
             </div>
@@ -53,9 +52,13 @@
             </div>
 
             <div class="layui-inline"><a href="javascript:void (0)" onclick="addProductItem()" style="font-size: 30px">+</a></div>
-
         </div>
+    </div>
 
+    <div id="productDiv" th:if="${exsitOrder>0}">
+        <input type="hidden" id="productNum" th:value="${exsitOrder}"/>
+        <input type="hidden"  th:each="list,userStat:${orderDetailList}" th:id="productId_${userStat.index}"   th:title="${list.productName}" th:value="${list.id}"/>
+        <input type="hidden"  th:each="list,userStat:${orderDetailList}" th:id="productNum_${userStat.index}"  th:value="${list.productNum}" />
     </div>
 
     <div class="layui-form-item">

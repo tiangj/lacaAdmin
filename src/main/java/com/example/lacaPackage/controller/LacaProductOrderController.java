@@ -8,6 +8,7 @@ import com.example.lacaPackage.DO.OrderDO;
 import com.example.lacaPackage.entity.LacaProduct;
 import com.example.lacaPackage.entity.LacaProductOrder;
 import com.example.lacaPackage.entity.LacaProductOrderDetail;
+import com.example.lacaPackage.service.ILacaProductOrderDetailService;
 import com.example.lacaPackage.service.ILacaProductOrderService;
 import com.example.lacaPackage.service.ILacaProductService;
 import org.apache.commons.lang.StringUtils;
@@ -38,6 +39,9 @@ public class LacaProductOrderController {
 
     @Autowired
     private ILacaProductService lacaProductService;
+
+    @Autowired
+    private ILacaProductOrderDetailService lacaProductOrderDetailService;
 
     @RequestMapping("list")
     public String list(){
@@ -88,6 +92,14 @@ public class LacaProductOrderController {
         if(orderDO.getPostWay()==null){
            orderDO.setPostWay("");
         }
+        //根据订单id获取订单详情
+        EntityWrapper<LacaProductOrderDetail> orderDetailEntityWrapper=new EntityWrapper<>();
+        orderDetailEntityWrapper.eq("order_id",id);
+        orderDetailEntityWrapper.eq("delete_flag",0);
+        List<LacaProductOrderDetail> orderDetailList=lacaProductOrderDetailService.selectList(orderDetailEntityWrapper);
+        model.addAttribute("orderDetailList",orderDetailList);
+        model.addAttribute("exsitOrder",orderDetailList.size());
+
         //获取所有的商品
         EntityWrapper<LacaProduct> entityWrapper=new EntityWrapper<>();
         entityWrapper.eq("delete_flag",0);

@@ -194,8 +194,6 @@ function selectCustomerInfo() {
     //x_admin_show('客户信息', 'lacaProductOrder/toSelectCustomerInfo?customerName=' + customerName, 800, 600);
 }
 
-
-
 /****
  * 设置订单id到订单登记的表单
  * @param orderId
@@ -204,5 +202,21 @@ function setInnerOrderId(orderId) {
     //关闭最新的dialog
     layer.close(layer.index);
     $("#innerOrderId").val(orderId);
-
 }
+
+$(function () {
+    var productNum=$("#productNum").val();
+
+    var productIds=new Array();
+
+    var productNums=new Array();
+
+    var html="";
+    for(var i=0;i<productNum;i++){
+        productIds.push($("#productId_"+i).val());
+        productNums.push($("#productNum_"+i)).val();
+        var index=i+1;
+
+    }
+
+})

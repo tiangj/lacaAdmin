@@ -34,9 +34,29 @@
     </sql>
 
     <select id="getAllOrderList" parameterType="com.example.lacaPackage.DO.OrderDO" resultType="com.example.lacaPackage.DO.OrderDO">
-      select
-        o.id, total_num AS totalNum, sale_type AS saleType, join_shop AS joinShop, customer_name AS customerName, designer, user_shop_fee AS userShopFee, post_way AS postWay, total_price AS totalPrice, wx_pay_price AS wxPayPrice, alipay_pay_price AS alipayPayPrice, cash_pay_price AS cashPayPrice, card_pay_price AS cardPayPrice, status, remark, other, create_date AS createDate, create_user AS createUser, update_date AS updateDate, update_user AS updateUser, deleteFlag,inner_order_id as innerOrderId
-      from laca_product_order o where o.deleteFlag=0
+      SELECT
+          po.id, po.total_num AS totalNum, po.sale_type AS saleType, join_shop AS joinShop, customer_name AS customerName, designer, user_shop_fee AS userShopFee, post_way AS postWay, total_price AS totalPrice, wx_pay_price AS wxPayPrice, alipay_pay_price AS alipayPayPrice, cash_pay_price AS cashPayPrice, card_pay_price AS cardPayPrice, po.status, po.remark, po.other,
+          po.create_date AS createDate, po.create_user AS createUser, po.update_date AS updateDate, po.update_user AS updateUser, po.deleteFlag,inner_order_id as innerOrderId
+          GROUP_CONCAT(pod.product_id) as productIds,GROUP_CONCAT(p.product_name,':',pod.product_num,'件') as productInfos FROM laca_product_order po
+        left JOIN laca_product_order_detail pod on po.id=pod.order_id
+        left join laca_product p on p.id=pod.product_id
+        where  po.deleteFlag=0
+        <if test="saleType!=null and saleType!=''">
+          and po.sale_type=#{saleType}
+        </if>
+        <if test="joinShop!=null and joinShop!=''">
+           and po.join_shop like '%${joinShop}%'
+        </if>
+        <if test="customerName!=null and customerName!=''">
+            and po.customer_name like '%${customer_name}%'
+        </if>
+        <if test="designer!=null and designer!=''">
+            and po.designer like '%${designer}%'
+        </if>
+        <if test="productName!=null and productName!=''">
+            and p.prduct_name like '%${productName}%'
+        </if>
+        group by po.id order by po.create_date desc
     </select>
 
     <select id="getOrderInfoById" parameterType="java.lang.String" resultType="com.example.lacaPackage.DO.OrderDO">

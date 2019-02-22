@@ -46,13 +46,26 @@ public class LacaProductOrderController {
 
     @ResponseBody
     @RequestMapping("listData")
-    public Map<String,Object> listData(Integer page, Integer limit,String name){
+    public Map<String,Object> listData(Integer page, Integer limit,String productName,Integer saleType,
+                                       String joinShop,String customerName,String designer){
         Page<OrderDO> orderDOPage=new Page<>();
         orderDOPage.setLimit(limit);
         orderDOPage.setCurrent(page);
         OrderDO orderDO=new OrderDO();
-        if(StringUtils.isNotBlank(name)){
-            orderDO.setProducName(name);
+        if(StringUtils.isNotBlank(productName)){
+            orderDO.setProductName(productName);
+        }
+        if(saleType!=null){
+            orderDO.setSaleType(saleType);
+        }
+        if(StringUtils.isNotBlank(joinShop)){
+            orderDO.setJoinShop(joinShop);
+        }
+        if(StringUtils.isNotBlank(customerName)){
+            orderDO.setCustomerName(customerName);
+        }
+        if(StringUtils.isNotBlank(designer)){
+            orderDO.setDesigner(designer);
         }
         Page<OrderDO> pageList=productOrderService.getAllOrderList(orderDOPage,orderDO);
         Map<String,Object> result=new HashMap<>();

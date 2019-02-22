@@ -11,20 +11,28 @@ public class OrderDO extends LacaProductOrder {
 
     private String productId;
 
-    private String producName;
+    private String productName;
 
     private Integer productNum;
 
-    private Integer totalNum;
+    private String productIds;
 
-    @Override
-    public Integer getTotalNum() {
-        return totalNum;
+    private String productInfos;
+
+    public String getProductIds() {
+        return productIds;
     }
 
-    @Override
-    public void setTotalNum(Integer totalNum) {
-        this.totalNum = totalNum;
+    public void setProductIds(String productIds) {
+        this.productIds = productIds;
+    }
+
+    public String getProductInfos() {
+        return productInfos;
+    }
+
+    public void setProductInfos(String productInfos) {
+        this.productInfos = productInfos;
     }
 
     public List<LacaProductOrderDetail> getOrderDetailList() {
@@ -35,12 +43,12 @@ public class OrderDO extends LacaProductOrder {
         this.orderDetailList = orderDetailList;
     }
 
-    public String getProducName() {
-        return producName;
+    public String getProductName() {
+        return productName;
     }
 
-    public void setProducName(String producName) {
-        this.producName = producName;
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
     public String getProductId() {

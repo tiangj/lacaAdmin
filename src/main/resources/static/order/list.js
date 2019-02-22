@@ -36,9 +36,22 @@ layui.use('table', function () {
 
     var $ = layui.$, active = {
         reload: function () {
-            var name = $('#name').val();
+            var productName = $('#productName').val();
+
+            var saleType=$("#saleType").find("option:selected").val();
+
+            var joinShop=$("#joinShop").val();
+
+            var customerName=$("#customerName").val();
+
+            var designer=$("#designer").val();
+
             var data = {
-                name: name
+                productName: productName,
+                saleType:saleType,
+                joinShop:joinShop,
+                customerName:customerName,
+                designer:designer
             }
             //执行重载
             table.reload('testReload', {

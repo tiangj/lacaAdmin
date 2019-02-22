@@ -72,6 +72,12 @@ public class LacaProductOrderServiceImpl extends ServiceImpl<LacaProductOrderMap
             lacaProductOrder.setRemark(orderDO.getRemark());
             if(StringUtils.isNotBlank(orderDO.getInnerOrderId())){
                 lacaProductOrder.setStatus("3");
+
+                LacaProductOrder orgProductOrder=new LacaProductOrder();
+                orgProductOrder.setId(Integer.parseInt(orderDO.getInnerOrderId()));
+                orgProductOrder.setStatus("3");
+                lacaProductOrderMapper.updateById(orgProductOrder);
+
             }else{
                 lacaProductOrder.setStatus(orderDO.getStatus());
             }

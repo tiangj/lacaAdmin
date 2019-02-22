@@ -23,7 +23,23 @@ layui.use('table', function () {
             , {field: 'customerName', title: '客户姓名', width: '6%', sort: true}
             , {field: 'designer', title: '设计师', width: '6%', sort: true}
             , {field: 'userShopFee', title: '用店费', width: '6%', sort: true}
-            , {field: 'postWay', title: '支付方式', width: '6%', sort: true}
+            , {field: 'postWay', title: '支付方式', width: '6%', sort: true, templet: function (d) {
+                    var html="";
+                    if(d.postWay.indexOf('1')>-1){
+                        html+="现金 &nbsp;";
+                    }
+                    if(d.postWay.indexOf('2')>-1){
+                        html+="刷卡 &nbsp;";
+                    }
+                    if(d.postWay.indexOf('3')>-1){
+                        html+="微信 &nbsp;";
+                    }
+                    if(d.postWay.indexOf('4')>-1){
+                        html+="支付宝 &nbsp;";
+                    }
+                    return html;
+                }
+              }
             , {field: 'totalPrice', title: '总金额', width: '6%', sort: true}
             , {field: 'status', title: '状态', width: '6%', sort: true, templet: function (d) {
                     //1:借货,2:还货,3:已完成

@@ -10,10 +10,10 @@ layui.use(['form','layer'], function() {
     //监听提交
     form.on('submit(add)', function(data){
         //不同产品的个数
-        var childrenNumber=$('#productDiv').children("div").length;
+        var childrenNumber=$('.productDiv').children("div").length;
 
         var formData=data.field;
-        formData.prductTypeSize=childrenNumber;
+        formData.productTypeSize=childrenNumber;
 
         var productIds=new Array();
 
@@ -36,7 +36,7 @@ layui.use(['form','layer'], function() {
             }
         }
 
-
+        console.log(formData);
         if(flag==false){
             layer.msg("存在相同的产品数据,请检查数据是否正确...",{icon:5});
             return false;
@@ -73,7 +73,7 @@ function addProductItem() {
         method:'post',
         async:true,
         success:function(res){
-            var childrenNumber=$('#productDiv').children("div").length;
+            var childrenNumber=$('.productDiv').children("div").length;
             var lacaProductListOption="";
             for(var i=0;i<res.length;i++){
                 lacaProductListOption+="<option value='"+res[i].id+"'>"+res[i].productName+"</option>";
@@ -103,7 +103,7 @@ function addProductItem() {
                 '            <div class="layui-inline"><a href="javascript:void (0)" onclick="addProductItem()" style="font-size: 30px">+</a></div>' +
                 '            <div class="layui-inline"><a href="javascript:void (0)" onclick="delProductItem('+index+')" style="font-size: 30px">-</a></div>' +
                 '        </div>';
-            $("#productDiv").append(html);
+            $(".productDiv").append(html);
 
             var form = layui.form;
             form.render('select');
@@ -205,20 +205,100 @@ function setInnerOrderId(orderId) {
 }
 
 $(function () {
-    var productNum=$("#productNum").val();
+    var exsitOrder=$("#exsitOrder").val();
+    if(exsitOrder>0){
+        var productNum=$("#productNum").val();
 
-    var productIds=new Array();
+        var productIds=new Array();
 
-    var productNums=new Array();
+        var productNums=new Array();
 
-    var html="";
-    for(var i=0;i<productNum;i++){
-        productIds.push($("#productId_"+i).val());
-        productNums.push($("#productNum_"+i)).val();
-        var index=i+1;
+        //获取所有的产品
+        var inputs = document.getElementsByName('productInfo');//获取所有的input标签对象。
+        for(var i=0;i<inputs.length;i++){
 
+            var obj = inputs[i];
+            if(obj.type=='checkbox'){
+                if(obj.checked==true){
+                    productIds[i] =obj.value;
+                    productNums[i]=obj.title;
+                }
+            }
+        }
+
+        var html="";
+        for(var i=1;i<=productNum;i++){
+
+            var productId=$("#productId_"+i).val();
+
+            var productNum=$("#productName_"+i).val();
+
+            var selectName="productId_"+i;
+
+            var productNumName="productNum_"+i;
+
+            var lacaProductListOption="";
+
+            for(var j=0;j<productIds.length;j++){
+                if(productIds[j]==productId){
+                    lacaProductListOption+='<option value="'+productId+'" selected="true">'+productNums[j]+'</option>';
+                }else{
+                    lacaProductListOption+='<option value="'+productIds[j]+'">'+productNums[j]+'</option>';
+                }
+            }
+
+            console.log(lacaProductListOption);
+
+
+            if(i==1){
+                html+='<div class="layui-form-item" id="prductItem_1">\n' +
+                    '            <div class="layui-inline">\n' +
+                    '                <label class="layui-form-label">产品信息</label>\n' +
+                    '                <div class="layui-input-block">\n' +
+                    '                    <select id="productId_1" name="productId_1" lay-verify="required">\n' +
+                    lacaProductListOption+
+                    '                    </select>\n' +
+                    '                </div>\n' +
+                    '            </div>\n' +
+                    '            <div class="layui-inline">\n' +
+                    '                <label class="layui-form-label">个数</label>\n' +
+                    '                <div class="layui-input-block">\n' +
+                    '                    <input type="text" id="productNum_1" name="productNum_1" value="'+productNum+'" autocomplete="off" class="layui-input" lay-verify="number">\n' +
+                    '                </div>\n' +
+                    '            </div>\n' +
+                    '\n' +
+                    '            <div class="layui-inline"><a href="javascript:void (0)" onclick="addProductItem()" style="font-size: 30px">+</a></div>\n' +
+                    '        </div>';
+            }else{
+                html+='<div class="layui-form-item" id="'+id+'">' +
+                    '            <div class="layui-inline">' +
+                    '                <div class="layui-input-block">' +
+                    '                    <select id="'+selectName+'" name="'+selectName+'" lay-verify="required">' +
+                    lacaProductListOption+
+                    '                    </select>' +
+                    '                </div>' +
+                    '            </div>' +
+                    '            <div class="layui-inline">' +
+                    '                <label class="layui-form-label">个数</label>' +
+                    '                <div class="layui-input-block">' +
+                    '                    <input type="text" id="'+productNumName+'" name="'+productNumName+'"  value="'+productNum+'" autocomplete="off" class="layui-input" lay-verify="number">' +
+                    '                </div>' +
+                    '            </div>' +
+                    '            <div class="layui-inline"><a href="javascript:void (0)" onclick="addProductItem()" style="font-size: 30px">+</a></div>' +
+                    '            <div class="layui-inline"><a href="javascript:void (0)" onclick="delProductItem('+i+')" style="font-size: 30px">-</a></div>' +
+                    '        </div>';
+            }
+        }
+
+
+
+        $(".productDiv").html(html);
+        layui.use('form', function() {
+            var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
+            form.render();
+        });
     }
 
-    $("#productDiv").html(html);
+
 
 })

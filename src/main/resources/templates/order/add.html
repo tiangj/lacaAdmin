@@ -22,6 +22,7 @@
 </fieldset>
 <form class="layui-form" action="" th:object="${orderDO}">
     <input type="hidden" th:field="*{id}"/>
+    <input type="hidden" th:value="${exsitOrder}" id="exsitOrder">
 
     <div class="layui-form-item">
         <label class="layui-form-label">订单类型</label>
@@ -34,7 +35,7 @@
     </div>
 
 
-    <div id="productDiv" th:if="${exsitOrder==0}">
+    <div class="productDiv" th:if="${exsitOrder==0}">
         <div class="layui-form-item" id="prductItem_1">
             <div class="layui-inline">
                 <label class="layui-form-label">产品信息</label>
@@ -55,10 +56,11 @@
         </div>
     </div>
 
-    <div id="productDiv" th:if="${exsitOrder>0}">
-        <input type="hidden" id="productNum" th:value="${exsitOrder}"/>
-        <input type="hidden"  th:each="list,userStat:${orderDetailList}" th:id="productId_${userStat.index}"   th:title="${list.productName}" th:value="${list.id}"/>
-        <input type="hidden"  th:each="list,userStat:${orderDetailList}" th:id="productNum_${userStat.index}"  th:value="${list.productNum}" />
+    <div class="productDiv" th:if="${exsitOrder>0}">
+        <input type="text" id="productNum" th:value="${exsitOrder}"/>
+        <input type="checkbox" name="productInfo" th:each="list,userStat:${lacaProductList}" th:checked="true" th:value="${list.id}" th:title="${list.productName}">
+        <input type="text"  th:each="list,userStat:${orderDetailList}" th:id="${list.productIdIndex}"   th:value="${list.productId}"/>
+        <input type="text"  th:each="list,userStat:${orderDetailList}" th:id="${list.productNameIndex}"  th:value="${list.productNum}" />
     </div>
 
     <div class="layui-form-item">

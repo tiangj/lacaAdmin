@@ -8,11 +8,39 @@ layui.use('table', function () {
         , url: ctxPath + 'lacaProductOrder/listData'
         , cols: [[
             {field: 'id', hide: true}
-            , {field: 'name', title: '产品名称', width: '20%', sort: true}
-
-            , {field: 'createDate', title: '创建时间', width: '20%', sort: true}
+            , {field: 'productInfos', title: '产品信息', width: '18%', sort: true}
+            , {field: 'totalNum', title: '总数', width: '5%', sort: true}
+            , {field: 'saleType', title: '类型', width: '5%', sort: true, templet: function (d) {
+                    if(d.saleType==1){
+                        return "进";
+                    }
+                    if(d.saleType==2){
+                        return "出";
+                    }
+                }
+              }
+            , {field: 'joinShop', title: '加盟商', width: '6%', sort: true}
+            , {field: 'customerName', title: '客户姓名', width: '6%', sort: true}
+            , {field: 'designer', title: '设计师', width: '6%', sort: true}
+            , {field: 'userShopFee', title: '用店费', width: '6%', sort: true}
+            , {field: 'postWay', title: '支付方式', width: '6%', sort: true}
+            , {field: 'totalPrice', title: '总金额', width: '6%', sort: true}
+            , {field: 'status', title: '状态', width: '6%', sort: true, templet: function (d) {
+                    //1:借货,2:还货,3:已完成
+                    if(d.status==1){
+                        return "借货";
+                    }else if(d.status==2){
+                        return "还货";
+                    }else if(d.status==3){
+                        return "已完成";
+                    }
+                }
+              }
+            , {field: 'remark', title: '备注', width: '10%', sort: true}
+            , {field: 'innerOrderId', title: '还货关联订单id', width: '6%', sort: true}
+            , {field: 'createDate', title: '创建时间', width: '8%', sort: true}
             , {
-                filed: 'cz', title: '操作', width: '20%', templet: function (d) {
+                filed: 'cz', title: '操作', width: '6%', templet: function (d) {
                     var html = "";
                     html += '<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>';
                     return html;

@@ -4,6 +4,7 @@ package com.example.lacaPackage.controller;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.example.config.ConstantUtil;
+import com.example.lacaPackage.DO.LacaProductOrderDetailDO;
 import com.example.lacaPackage.DO.OrderDO;
 import com.example.lacaPackage.entity.LacaProduct;
 import com.example.lacaPackage.entity.LacaProductOrder;
@@ -50,7 +51,7 @@ public class LacaProductOrderController {
 
     @ResponseBody
     @RequestMapping("listData")
-    public Map<String,Object> listData(Integer page, Integer limit,String productName,Integer saleType,
+    public Map<String,Object> listData(Integer page, Integer limit,String productName,String saleType,
                                        String joinShop,String customerName,String designer){
         Page<OrderDO> orderDOPage=new Page<>();
         orderDOPage.setLimit(limit);
@@ -59,8 +60,8 @@ public class LacaProductOrderController {
         if(StringUtils.isNotBlank(productName)){
             orderDO.setProductName(productName);
         }
-        if(saleType!=null){
-            orderDO.setSaleType(saleType);
+        if(StringUtils.isNotBlank(saleType)){
+            orderDO.setSaleType(Integer.parseInt(saleType));
         }
         if(StringUtils.isNotBlank(joinShop)){
             orderDO.setJoinShop(joinShop);
@@ -97,8 +98,23 @@ public class LacaProductOrderController {
         orderDetailEntityWrapper.eq("order_id",id);
         orderDetailEntityWrapper.eq("delete_flag",0);
         List<LacaProductOrderDetail> orderDetailList=lacaProductOrderDetailService.selectList(orderDetailEntityWrapper);
-        model.addAttribute("orderDetailList",orderDetailList);
-        model.addAttribute("exsitOrder",orderDetailList.size());
+        List<LacaProductOrderDetailDO> lacaProductOrderDetailDOList=new ArrayList<>();
+
+        int i=1;
+        for (LacaProductOrderDetail lacaProductOrderDetail:orderDetailList){
+            LacaProductOrderDetailDO lacaProductOrderDetailDO=new LacaProductOrderDetailDO();
+            lacaProductOrderDetailDO.setProductIdIndex("productId_"+i);
+            lacaProductOrderDetailDO.setProductNameIndex("productName_"+i);
+            lacaProductOrderDetailDO.setId(lacaProductOrderDetail.getId());
+            lacaProductOrderDetailDO.setProductId(lacaProductOrderDetail.getProductId());
+            lacaProductOrderDetailDO.setProductNum(lacaProductOrderDetail.getProductNum());
+            lacaProductOrderDetailDOList.add(lacaProductOrderDetailDO);
+            i++;
+
+        }
+
+        model.addAttribute("orderDetailList",lacaProductOrderDetailDOList);
+        model.addAttribute("exsitOrder",lacaProductOrderDetailDOList.size());
 
         //获取所有的商品
         EntityWrapper<LacaProduct> entityWrapper=new EntityWrapper<>();
@@ -125,7 +141,7 @@ public class LacaProductOrderController {
 
         String userId=request.getSession().getAttribute(ConstantUtil.SEESION_USER_ID).toString();
         //不同产品的类型数
-        Integer prductTypeSize=Integer.parseInt(request.getParameter("prductTypeSize"));
+        Integer prductTypeSize=Integer.parseInt(request.getParameter("productTypeSize"));
 
         List<LacaProductOrderDetail> productOrderDetailList=new ArrayList<>();
         Integer totalNum=0;

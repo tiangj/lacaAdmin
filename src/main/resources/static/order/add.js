@@ -219,4 +219,6 @@ $(function () {
 
     }
 
+    $("#productDiv").html(html);
+
 })

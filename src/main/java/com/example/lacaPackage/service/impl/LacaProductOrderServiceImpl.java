@@ -84,6 +84,7 @@ public class LacaProductOrderServiceImpl extends ServiceImpl<LacaProductOrderMap
             lacaProductOrder.setInnerOrderId(orderDO.getInnerOrderId());
             //保存或者订单主表
             if(orderDO.getId()!=null){
+                lacaProductOrder.setId(orderDO.getId());
                 lacaProductOrder.setUpdateDate(new Date());
                 lacaProductOrder.setUpdateUser(userId);
                 lacaProductOrderMapper.updateById(lacaProductOrder);

@@ -7,8 +7,8 @@ layui.use('table', function () {
         elem: '#LAY_table_productOrder'
         , url: ctxPath + 'lacaProductOrder/listData'
         , cols: [[
-            {field: 'id', hide: true}
-            , {field: 'productInfos', title: '产品信息', width: '18%', sort: true}
+            {field: 'id', title: '订单id', width: '5%', sort: true}
+            , {field: 'productInfos', title: '产品信息', width: '16%', sort: true}
             , {field: 'totalNum', title: '总数', width: '5%', sort: true}
             , {field: 'saleType', title: '类型', width: '5%', sort: true, templet: function (d) {
                     if(d.saleType==1){
@@ -19,22 +19,22 @@ layui.use('table', function () {
                     }
                 }
               }
-            , {field: 'joinShop', title: '加盟商', width: '6%', sort: true}
-            , {field: 'customerName', title: '客户姓名', width: '6%', sort: true}
-            , {field: 'designer', title: '设计师', width: '6%', sort: true}
-            , {field: 'userShopFee', title: '用店费', width: '6%', sort: true}
+            , {field: 'joinShop', title: '加盟商', width: '5%', sort: true}
+            , {field: 'customerName', title: '客户姓名', width: '5%', sort: true}
+            , {field: 'designer', title: '设计师', width: '5%', sort: true}
+            , {field: 'userShopFee', title: '用店费', width: '5%', sort: true}
             , {field: 'postWay', title: '支付方式', width: '6%', sort: true, templet: function (d) {
                     var html="";
-                    if(d.postWay.indexOf('1')>-1){
+                    if(d.postWay !=null && d.postWay!='' && d.postWay.indexOf('1')>-1){
                         html+="现金 &nbsp;";
                     }
-                    if(d.postWay.indexOf('2')>-1){
+                    if(d.postWay !=null && d.postWay!='' && d.postWay.indexOf('2')>-1){
                         html+="刷卡 &nbsp;";
                     }
-                    if(d.postWay.indexOf('3')>-1){
+                    if(d.postWay !=null && d.postWay!='' && d.postWay.indexOf('3')>-1){
                         html+="微信 &nbsp;";
                     }
-                    if(d.postWay.indexOf('4')>-1){
+                    if(d.postWay !=null && d.postWay!='' &&  d.postWay.indexOf('4')>-1){
                         html+="支付宝 &nbsp;";
                     }
                     return html;
@@ -67,7 +67,7 @@ layui.use('table', function () {
         , page: true
         , height: height
         , done: function (res, curr, count) {
-            $("[data-field='id']").css('display', 'none');
+           // $("[data-field='id']").css('display', 'none');
         }
     });
     //监听工具条

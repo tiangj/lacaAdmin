@@ -127,7 +127,15 @@ layui.use('table', function () {
         , url: ctxPath + 'lacaProductOrder/getProductOrderInfo'
         , cols: [[
             {field: 'id', hide: true}
-            , {field: 'saleType', title: '类型', width: '10%', sort: true}
+            , {field: 'saleType', title: '类型', width: '10%', sort: true, templet: function (d) {
+                    if(d.saleType==1){
+                        return "进";
+                    }
+                    if(d.saleType==2){
+                        return "出";
+                    }
+                }
+             }
             , {field: 'customerName', title: '客户姓名', width: '10%', sort: true}
             , {field: 'userShopFee', title: '用店费', width: '10%', sort: true}
             , {field: 'totalPrice', title: '总金额', width: '10%', sort: true}
@@ -227,7 +235,7 @@ $(function () {
         }
 
         var html="";
-        for(var i=1;i<=productNum;i++){
+        for(var i=1;i<=exsitOrder;i++){
 
             var productId=$("#productId_"+i).val();
 

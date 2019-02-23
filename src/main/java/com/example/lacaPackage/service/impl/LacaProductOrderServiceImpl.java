@@ -54,6 +54,8 @@ public class LacaProductOrderServiceImpl extends ServiceImpl<LacaProductOrderMap
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Map<String, Object> saveOrder(OrderDO orderDO,String userId) throws Exception {
+        Integer orgId=orderDO.getId();
+
         Map<String,Object> result=new HashMap<>();
         try{
             LacaProductOrder lacaProductOrder=new LacaProductOrder();
@@ -114,22 +116,26 @@ public class LacaProductOrderServiceImpl extends ServiceImpl<LacaProductOrderMap
 
                   lacaProductStock=lacaProductStockMapper.selectOne(lacaProductStock);
 
-                  //进
-                  if(saleType==1){
-                      lacaProductStock.setIncomeNum(lacaProductOrderDetail.getProductNum()+lacaProductStock.getIncomeNum());
-                      lacaProductStock.setExsitNum(lacaProductOrderDetail.getProductNum()+lacaProductStock.getExsitNum());
-                  }
-                  //出
-                  if(saleType==2){
-                      lacaProductStock.setExsitNum(lacaProductStock.getExsitNum()-lacaProductOrderDetail.getProductNum());
-                      lacaProductStock.setOutNum(lacaProductOrderDetail.getProductNum()+lacaProductStock.getOutNum());
+                  if(orgId==null){
+                      //进
+                      if(saleType==1){
+                          lacaProductStock.setIncomeNum(lacaProductOrderDetail.getProductNum()+lacaProductStock.getIncomeNum());
+                          lacaProductStock.setExsitNum(lacaProductOrderDetail.getProductNum()+lacaProductStock.getExsitNum());
+                      }
+                      //出
+                      if(saleType==2){
+                          lacaProductStock.setExsitNum(lacaProductStock.getExsitNum()-lacaProductOrderDetail.getProductNum());
+                          lacaProductStock.setOutNum(lacaProductOrderDetail.getProductNum()+lacaProductStock.getOutNum());
+                      }
+
+                      //修改产品的库存
+                      lacaProductStock.setUpdateDate(new Date());
+                      lacaProductStock.setUpdateUser(userId);
+
+                      lacaProductStockMapper.updateById(lacaProductStock);
                   }
 
-                  //修改产品的库存
-                  lacaProductStock.setUpdateDate(new Date());
-                  lacaProductStock.setUpdateUser(userId);
 
-                  lacaProductStockMapper.updateById(lacaProductStock);
             }
             result.put("code",1);
             result.put("msg","操作成功");

@@ -36,7 +36,19 @@ layui.use(['form','layer'], function() {
             }
         }
 
-        console.log(formData);
+        var saleType=formData.saleType;
+
+        var status=formData.status;
+
+        if(saleType==1 && status==1){
+            layer.msg("数据状态存在问题,请检查数据是否正确...",{icon:5});
+            return false;
+        }
+        if(saleType==2 && status==2){
+            layer.msg("数据状态存在问题,请检查数据是否正确...",{icon:5});
+            return false;
+        }
+
         if(flag==false){
             layer.msg("存在相同的产品数据,请检查数据是否正确...",{icon:5});
             return false;
@@ -121,10 +133,13 @@ function delProductItem(index) {
 
 layui.use('table', function () {
     var table = layui.table;
+    $ = layui.jquery;
+
     //方法级渲染
     table.render({
         elem: '#LAY_table_customerOrderInfo'
         , url: ctxPath + 'lacaProductOrder/getProductOrderInfo'
+        , where:{customerName:$("#customerName").val(),orderId:$("#id").val()}
         , cols: [[
             {field: 'id', hide: true}
             , {field: 'saleType', title: '类型', width: '10%', sort: true, templet: function (d) {
@@ -168,7 +183,7 @@ layui.use('table', function () {
 
     var $ = layui.$, active = {
         reload: function () {
-            var customerName = $('#customerName').val();
+            var customerName = $('#customerNameDialog').val();
             var data = {
                 customerName: customerName
             }

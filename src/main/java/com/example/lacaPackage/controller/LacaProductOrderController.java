@@ -191,13 +191,14 @@ public class LacaProductOrderController {
      */
     @ResponseBody
     @RequestMapping("getProductOrderInfo")
-    public Map<String,Object>  getProductOrderInfo(String customerName){
+    public Map<String,Object>  getProductOrderInfo(String customerName,String orderId){
         EntityWrapper<LacaProductOrder> entityWrapper=new EntityWrapper<>();
         if(StringUtils.isNotBlank(customerName)){
-            entityWrapper.eq("customer_name",customerName);
+            entityWrapper.like("customer_name",customerName);
         }
         entityWrapper.eq("deleteFlag",0);
         entityWrapper.eq("sale_type",2);
+        entityWrapper.ne("id",orderId);
         List<LacaProductOrder> list=productOrderService.selectList(entityWrapper);
         Map<String,Object> result=new HashMap<>();
         result.put("code",0);

@@ -7,6 +7,27 @@ layui.use(['form','layer'], function() {
         ,layer = layui.layer
     form.verify();
 
+    form.on('select(productTypeFilter_1)', function(data){
+        var optionHtml="";
+        if(data.value!=null && data.value!=''){
+            var productTypeId=data.value;
+            $.ajax({
+                url:ctxPath+'lacaProductOrder/getAllLacaProduct',
+                method:'post',
+                data:{productTypeId:productTypeId},
+                success:function(res){
+                    for(var i=0;i<res.length;i++){
+                        optionHtml+='<option value="'+res[i].id+'">'+res[i].productName+'</option>';
+                    }
+
+                    $("#productId_1").html(optionHtml);
+                }
+            });
+        }
+    });
+
+    form.render("select");
+
     //监听提交
     form.on('submit(add)', function(data){
         //不同产品的个数

@@ -9,9 +9,11 @@ import com.example.lacaPackage.DO.OrderDO;
 import com.example.lacaPackage.entity.LacaProduct;
 import com.example.lacaPackage.entity.LacaProductOrder;
 import com.example.lacaPackage.entity.LacaProductOrderDetail;
+import com.example.lacaPackage.entity.LacaProductType;
 import com.example.lacaPackage.service.ILacaProductOrderDetailService;
 import com.example.lacaPackage.service.ILacaProductOrderService;
 import com.example.lacaPackage.service.ILacaProductService;
+import com.example.lacaPackage.service.ILacaProductTypeService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -44,6 +46,9 @@ public class LacaProductOrderController {
 
     @Autowired
     private ILacaProductOrderDetailService lacaProductOrderDetailService;
+
+    @Autowired
+    private ILacaProductTypeService lacaProductTypeService;
 
     @RequestMapping("list")
     public String list(Model model){
@@ -137,16 +142,32 @@ public class LacaProductOrderController {
         List<LacaProduct> lacaProductList=lacaProductService.selectList(entityWrapper);
         model.addAttribute("lacaProductList",lacaProductList);
 
+        //获取所有商品类型
+        EntityWrapper<LacaProductType> entityTypeWrapper=new EntityWrapper<>();
+        entityTypeWrapper.eq("delete_flag",0);
+        List<LacaProductType> lacaProductTypeList=lacaProductTypeService.selectList(entityTypeWrapper);
+        model.addAttribute("lacaProductTypeList",lacaProductTypeList);
+
         return "order/add";
     }
 
     @ResponseBody
     @RequestMapping("getAllLacaProduct")
-    public List<LacaProduct> getAllLacaProduct(){
+    public List<LacaProduct> getAllLacaProduct(Integer productTypeId){
         //获取所有的商品
         EntityWrapper<LacaProduct> entityWrapper=new EntityWrapper<>();
         entityWrapper.eq("delete_flag",0);
+        entityWrapper.eq("product_type_id",productTypeId);
         return lacaProductService.selectList(entityWrapper);
+    }
+
+    @ResponseBody
+    @RequestMapping("getAllLacaProductType")
+    public List<LacaProductType> getAllLacaProductType(){
+        //获取所有商品类型
+        EntityWrapper<LacaProductType> entityWrapper=new EntityWrapper<>();
+        entityWrapper.eq("delete_flag",0);
+        return lacaProductTypeService.selectList(entityWrapper);
     }
 
     @ResponseBody

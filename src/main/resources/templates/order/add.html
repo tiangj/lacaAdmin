@@ -41,12 +41,22 @@
             <div class="layui-inline">
                 <label class="layui-form-label">产品信息</label>
                 <div class="layui-input-block">
-                    <select id="productId_1" name="productId_1" lay-verify="required">、
+                    <select id="productType_1" name="productType_1" lay-verify="required" lay-filter="productTypeFilter_1">
+                        <option value="">请选择</option>
+                        <option th:each="list,userStat:${lacaProductTypeList}" th:value="${list.id}" th:text="${list.name}"></option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="layui-inline">
+                <div class="layui-input-block">
+                    <select id="productId_1" name="productId_1" lay-verify="required">
                         <option value="">请选择</option>
                         <option th:each="list,userStat:${lacaProductList}" th:value="${list.id}" th:text="${list.productName}"></option>
                     </select>
                 </div>
             </div>
+
             <div class="layui-inline">
                 <label class="layui-form-label">个数</label>
                 <div class="layui-input-block">

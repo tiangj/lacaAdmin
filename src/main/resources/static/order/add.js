@@ -15,18 +15,103 @@ layui.use(['form','layer'], function() {
                 url:ctxPath+'lacaProductOrder/getAllLacaProduct',
                 method:'post',
                 data:{productTypeId:productTypeId},
+                async:true,
                 success:function(res){
                     for(var i=0;i<res.length;i++){
                         optionHtml+='<option value="'+res[i].id+'">'+res[i].productName+'</option>';
                     }
-
                     $("#productId_1").html(optionHtml);
+                    form.render("select");
                 }
             });
+
         }
     });
 
-    form.render("select");
+    form.on('select(productTypeFilter_2)', function(data){
+        var optionHtml="";
+        if(data.value!=null && data.value!=''){
+            var productTypeId=data.value;
+            $.ajax({
+                url:ctxPath+'lacaProductOrder/getAllLacaProduct',
+                method:'post',
+                data:{productTypeId:productTypeId},
+                async:true,
+                success:function(res){
+                    for(var i=0;i<res.length;i++){
+                        optionHtml+='<option value="'+res[i].id+'">'+res[i].productName+'</option>';
+                    }
+                    $("#productId_2").html(optionHtml);
+                    form.render("select");
+                }
+            });
+
+        }
+    });
+
+    form.on('select(productTypeFilter_3)', function(data){
+        var optionHtml="";
+        if(data.value!=null && data.value!=''){
+            var productTypeId=data.value;
+            $.ajax({
+                url:ctxPath+'lacaProductOrder/getAllLacaProduct',
+                method:'post',
+                data:{productTypeId:productTypeId},
+                async:true,
+                success:function(res){
+                    for(var i=0;i<res.length;i++){
+                        optionHtml+='<option value="'+res[i].id+'">'+res[i].productName+'</option>';
+                    }
+                    $("#productId_3").html(optionHtml);
+                    form.render("select");
+                }
+            });
+
+        }
+    });
+
+    form.on('select(productTypeFilter_4)', function(data){
+        var optionHtml="";
+        if(data.value!=null && data.value!=''){
+            var productTypeId=data.value;
+            $.ajax({
+                url:ctxPath+'lacaProductOrder/getAllLacaProduct',
+                method:'post',
+                data:{productTypeId:productTypeId},
+                async:true,
+                success:function(res){
+                    for(var i=0;i<res.length;i++){
+                        optionHtml+='<option value="'+res[i].id+'">'+res[i].productName+'</option>';
+                    }
+                    $("#productId_4").html(optionHtml);
+                    form.render("select");
+                }
+            });
+
+        }
+    });
+
+    form.on('select(productTypeFilter_5)', function(data){
+        var optionHtml="";
+        if(data.value!=null && data.value!=''){
+            var productTypeId=data.value;
+            $.ajax({
+                url:ctxPath+'lacaProductOrder/getAllLacaProduct',
+                method:'post',
+                data:{productTypeId:productTypeId},
+                async:true,
+                success:function(res){
+                    for(var i=0;i<res.length;i++){
+                        optionHtml+='<option value="'+res[i].id+'">'+res[i].productName+'</option>';
+                    }
+                    $("#productId_5").html(optionHtml);
+                    form.render("select");
+                }
+            });
+
+        }
+    });
+
 
     //监听提交
     form.on('submit(add)', function(data){
@@ -101,48 +186,87 @@ layui.use(['form','layer'], function() {
 });
 
 function addProductItem() {
+    var childrenNumberResult=$('.productDiv').children("div").length;
+    if(childrenNumberResult>=5){
+        layer.msg("最多新增5中类型的产品",{icon:5});
+        return false;
+    }
+
+    var html="";
     $.ajax({
-        url:ctxPath+'lacaProductOrder/getAllLacaProduct',
+        url:ctxPath+'lacaProductOrder/getAllLacaProductType',
         method:'post',
         async:true,
         success:function(res){
             var childrenNumber=$('.productDiv').children("div").length;
-            var lacaProductListOption="";
+            var lacaProductTypeListOption="<option value=''>请选择</option>";
             for(var i=0;i<res.length;i++){
-                lacaProductListOption+="<option value='"+res[i].id+"'>"+res[i].productName+"</option>";
+                lacaProductTypeListOption+="<option value='"+res[i].id+"'>"+res[i].name+"</option>";
             }
-
             var index=childrenNumber+1;
             var id="prductItem_"+index;
 
-            var selectName="productId_"+index;
+            var selectName="productType_"+index;
 
-            var productNumName="productNum_"+index;
+            var filter="productTypeFilter_"+index;
 
-            var html='<div class="layui-form-item" id="'+id+'">' +
-                '            <div class="layui-inline">' +
-                '                <div class="layui-input-block">' +
-                '                    <select id="'+selectName+'" name="'+selectName+'" lay-verify="required">' +
-                                        lacaProductListOption+
-                '                    </select>' +
-                '                </div>' +
-                '            </div>' +
-                '            <div class="layui-inline">' +
-                '                <label class="layui-form-label">个数</label>' +
-                '                <div class="layui-input-block">' +
-                '                    <input type="text" id="'+productNumName+'" name="'+productNumName+'"  autocomplete="off" class="layui-input" lay-verify="number">' +
-                '                </div>' +
-                '            </div>' +
-                '            <div class="layui-inline"><a href="javascript:void (0)" onclick="addProductItem()" style="font-size: 30px">+</a></div>' +
-                '            <div class="layui-inline"><a href="javascript:void (0)" onclick="delProductItem('+index+')" style="font-size: 30px">-</a></div>' +
-                '        </div>';
-            $(".productDiv").append(html);
+            html+='<div class="layui-form-item" id="'+id+'">' +
+                        '<div class="layui-inline">'+
+                            ' <div class="layui-input-block">'+
+                                    '<select id="'+selectName+'" name="'+selectName+'" lay-verify="required" lay-verify="required" lay-filter="'+filter+'" model="select" >' +
+                                        lacaProductTypeListOption+
+                                    '</select>'+
+                            '</div>'+
+                        '</div>';
 
-            var form = layui.form;
-            form.render('select');
+
+            $.ajax({
+                url:ctxPath+'lacaProductOrder/getAllLacaProduct',
+                method:'post',
+                async:true,
+                success:function(res){
+                    var childrenNumber=$('.productDiv').children("div").length;
+                    var lacaProductListOption="";
+                    for(var i=0;i<res.length;i++){
+                        lacaProductListOption+="<option value='"+res[i].id+"'>"+res[i].productName+"</option>";
+                    }
+
+                    var index=childrenNumber+1;
+                    var id="prductItem_"+index;
+
+                    var selectName="productId_"+index;
+
+                    var productNumName="productNum_"+index;
+
+                    html+='            <div class="layui-inline">' +
+                        '                <div class="layui-input-block">' +
+                        '                    <select id="'+selectName+'" name="'+selectName+'" lay-verify="required">' +
+                        lacaProductListOption+
+                        '                    </select>' +
+                        '                </div>' +
+                        '            </div>' +
+                        '            <div class="layui-inline">' +
+                        '                <label class="layui-form-label">个数</label>' +
+                        '                <div class="layui-input-block">' +
+                        '                    <input type="text" id="'+productNumName+'" name="'+productNumName+'"  autocomplete="off" class="layui-input" lay-verify="number">' +
+                        '                </div>' +
+                        '            </div>' +
+                        '            <div class="layui-inline"><a href="javascript:void (0)" onclick="addProductItem()" style="font-size: 30px">+</a></div>' +
+                        '            <div class="layui-inline"><a href="javascript:void (0)" onclick="delProductItem('+index+')" style="font-size: 30px">-</a></div></div>' ;
+                    $(".productDiv").append(html);
+
+                    var form = layui.form;
+                    form.render('select');
+
+                }
+            });
 
         }
     });
+
+
+
+
 
 }
 
@@ -251,11 +375,16 @@ function setInnerOrderId(orderId) {
 $(function () {
     var exsitOrder=$("#exsitOrder").val();
     if(exsitOrder>0){
-        var productNum=$("#productNum").val();
+
+        debugger
 
         var productIds=new Array();
 
         var productNums=new Array();
+
+        var productTypes=new Array();
+
+        var productTypeNames=new Array();
 
         //获取所有的产品
         var inputs = document.getElementsByName('productInfo');//获取所有的input标签对象。
@@ -266,6 +395,19 @@ $(function () {
                 if(obj.checked==true){
                     productIds[i] =obj.value;
                     productNums[i]=obj.title;
+                }
+            }
+        }
+
+        //获取所有产品类型
+        var inputsType = document.getElementsByName('productTypeInfo');//获取所有的input标签对象。
+        for(var i=0;i<inputsType.length;i++){
+
+            var obj = inputsType[i];
+            if(obj.type=='checkbox'){
+                if(obj.checked==true){
+                    productTypes[i] =obj.value;
+                    productTypeNames[i]=obj.title;
                 }
             }
         }
@@ -291,7 +433,23 @@ $(function () {
                 }
             }
 
-            console.log(lacaProductListOption);
+
+            var productTypeId=$("#productType_"+i).val();
+
+            var selectTypeName="productType_"+i;
+
+            var lacaProductListTypeOption="";
+
+            var productTypeFilter="productTypeFilter_"+i;
+
+            for(var j=0;j<productTypes.length;j++){
+                if(productTypes[j]==productTypeId){
+                    lacaProductListTypeOption+='<option value="'+productTypeId+'" selected="true">'+productTypeNames[j]+'</option>';
+                }else{
+                    lacaProductListTypeOption+='<option value="'+productTypes[j]+'">'+productTypeNames[j]+'</option>';
+                }
+            }
+
 
 
             if(i==1){
@@ -299,11 +457,24 @@ $(function () {
                     '            <div class="layui-inline">\n' +
                     '                <label class="layui-form-label">产品信息</label>\n' +
                     '                <div class="layui-input-block">\n' +
+                    '                    <select id="productType_1" name="productType_1" lay-verify="required" lay-filter="productTypeFilter_1" model="select">\n' +
+                    lacaProductListTypeOption+
+                    '                    </select>\n' +
+                    '                </div>\n' +
+                    '            </div>\n' +
+
+
+
+                    '            <div class="layui-inline">\n' +
+                    '                <label class="layui-form-label"></label>\n' +
+                    '                <div class="layui-input-block">\n' +
                     '                    <select id="productId_1" name="productId_1" lay-verify="required">\n' +
                     lacaProductListOption+
                     '                    </select>\n' +
                     '                </div>\n' +
                     '            </div>\n' +
+
+
                     '            <div class="layui-inline">\n' +
                     '                <label class="layui-form-label">个数</label>\n' +
                     '                <div class="layui-input-block">\n' +
@@ -315,6 +486,16 @@ $(function () {
                     '        </div>';
             }else{
                 html+='<div class="layui-form-item" id="'+id+'">' +
+
+                    '            <div class="layui-inline">' +
+                    '                <div class="layui-input-block">' +
+                    '                    <select id="'+selectTypeName+'" name="'+selectTypeName+'" lay-verify="required" lay-filter="'+productTypeFilter+'" model="select">' +
+                    lacaProductListTypeOption+
+                    '                    </select>' +
+                    '                </div>' +
+                    '            </div>' +
+
+
                     '            <div class="layui-inline">' +
                     '                <div class="layui-input-block">' +
                     '                    <select id="'+selectName+'" name="'+selectName+'" lay-verify="required">' +

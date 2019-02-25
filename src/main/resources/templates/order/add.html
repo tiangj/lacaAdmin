@@ -35,13 +35,13 @@
         </div>
     </div>
 
-
+    <!--新增-->
     <div class="productDiv" th:if="${exsitOrder==0}">
         <div class="layui-form-item" id="prductItem_1">
             <div class="layui-inline">
                 <label class="layui-form-label">产品信息</label>
                 <div class="layui-input-block">
-                    <select id="productType_1" name="productType_1" lay-verify="required" lay-filter="productTypeFilter_1">
+                    <select id="productType_1" name="productType_1" lay-verify="required" lay-filter="productTypeFilter_1" model="select" >
                         <option value="">请选择</option>
                         <option th:each="list,userStat:${lacaProductTypeList}" th:value="${list.id}" th:text="${list.name}"></option>
                     </select>
@@ -68,11 +68,15 @@
         </div>
     </div>
 
+    <!--修改-->
     <div class="productDiv" th:if="${exsitOrder>0}">
         <input type="text" id="productNum" th:value="${exsitOrder}" style="display: none"/>
         <input type="checkbox" name="productInfo" style="display: none"  th:each="list,userStat:${lacaProductList}" th:checked="true" th:value="${list.id}" th:title="${list.productName}">
+        <input type="checkbox" name="productTypeInfo" style="display: none"  th:each="list,userStat:${lacaProductTypeList}" th:checked="true" th:value="${list.id}" th:title="${list.name}">
         <input type="text"  style="display: none" th:each="list,userStat:${orderDetailList}" th:id="${list.productIdIndex}"   th:value="${list.productId}"/>
         <input type="text"  style="display: none" th:each="list,userStat:${orderDetailList}" th:id="${list.productNameIndex}"  th:value="${list.productNum}" />
+        <input type="text"  style="display: none" th:each="list,userStat:${orderDetailList}" th:id="${list.productTypeIndex}"  th:value="${list.productTypeId}" />
+        <input type="text"  style="display: none" th:each="list,userStat:${orderDetailList}" th:id="${list.productTypeNameIndex}"  th:value="${list.productTypeId}" />
     </div>
 
     <div class="layui-form-item">

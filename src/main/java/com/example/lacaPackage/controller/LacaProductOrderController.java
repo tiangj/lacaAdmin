@@ -23,6 +23,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -65,7 +66,7 @@ public class LacaProductOrderController {
     @ResponseBody
     @RequestMapping("listData")
     public Map<String,Object> listData(Integer page, Integer limit,String productName,String saleType,
-                                       String joinShop,String customerName,String designer,Date beginDate,Date endDate){
+                                       String joinShop,String customerName,String designer,String beginDate,String endDate){
         Page<OrderDO> orderDOPage=new Page<>();
         orderDOPage.setLimit(limit);
         orderDOPage.setCurrent(page);
@@ -85,11 +86,25 @@ public class LacaProductOrderController {
         if(StringUtils.isNotBlank(designer)){
             orderDO.setDesigner(designer);
         }
-        if(beginDate!=null){
-            orderDO.setBeginDate(beginDate);
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+        if(StringUtils.isNotBlank(beginDate)){
+            try {
+                orderDO.setBeginDate(sdf.parse(beginDate));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
-        if(endDate!=null){
-            orderDO.setEndDate(endDate);
+        if(StringUtils.isNotBlank(endDate)){
+            try {
+                Date endDateResult=sdf.parse(endDate);
+
+                Calendar calendar=Calendar.getInstance();
+                calendar.setTime(endDateResult);
+                calendar.add(Calendar.DATE,+1);
+                orderDO.setEndDate(calendar.getTime());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
 
         Page<OrderDO> pageList=productOrderService.getAllOrderList(orderDOPage,orderDO);
@@ -127,7 +142,16 @@ public class LacaProductOrderController {
             lacaProductOrderDetailDO.setProductNameIndex("productName_"+i);
             lacaProductOrderDetailDO.setId(lacaProductOrderDetail.getId());
             lacaProductOrderDetailDO.setProductId(lacaProductOrderDetail.getProductId());
+
+            EntityWrapper<LacaProduct> entityWrapper=new EntityWrapper<>();
+            entityWrapper.eq("id",lacaProductOrderDetail.getProductId());
+            entityWrapper.eq("delete_flag",0);
+            LacaProduct lacaProduct=lacaProductService.selectOne(entityWrapper);
+
             lacaProductOrderDetailDO.setProductNum(lacaProductOrderDetail.getProductNum());
+            lacaProductOrderDetailDO.setProductTypeId(lacaProduct.getProductTypeId());
+            lacaProductOrderDetailDO.setProductTypeIndex("productType_"+i);
+
             lacaProductOrderDetailDOList.add(lacaProductOrderDetailDO);
             i++;
 

@@ -1,7 +1,6 @@
 var height = $(document.body).height() * 0.8;
 
-layui.use('table', function () {
-    var table = layui.table;
+layui.use('laydate', function(){
     var laydate = layui.laydate;
 
     //常规用法
@@ -13,6 +12,11 @@ layui.use('table', function () {
     laydate.render({
         elem: '#endDate'
     });
+
+})
+
+layui.use('table', function () {
+    var table = layui.table;
 
     //方法级渲染
     table.render({
@@ -86,7 +90,7 @@ layui.use('table', function () {
     table.on('tool(productOrder)', function (obj) {
         var data = obj.data;
         if (obj.event === 'edit') {
-            x_admin_show('修改订单信息', 'lacaProductOrder/toAdd?id=' + data.id, 900, 750);
+            x_admin_show('修改订单信息', 'lacaProductOrder/toAdd?id=' + data.id, 1100, 750);
         }
     });
 
@@ -102,12 +106,18 @@ layui.use('table', function () {
 
             var designer=$("#designer").val();
 
+            var beginDate=$("#beginDate").val();
+
+            var endDate=$("#endDate").val();
+
             var data = {
                 productName: productName,
                 saleType:saleType,
                 joinShop:joinShop,
                 customerName:customerName,
-                designer:designer
+                designer:designer,
+                beginDate:beginDate,
+                endDate:endDate
             }
             //执行重载
             table.reload('testReload', {

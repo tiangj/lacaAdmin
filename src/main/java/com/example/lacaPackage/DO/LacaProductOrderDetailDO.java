@@ -8,6 +8,36 @@ public class LacaProductOrderDetailDO extends LacaProductOrderDetail {
 
     private String productNameIndex;
 
+    private String productTypeIndex;
+
+    private Integer productTypeId;
+
+    private String  productTypeNameIndex;
+
+    public String getProductTypeNameIndex() {
+        return productTypeNameIndex;
+    }
+
+    public void setProductTypeNameIndex(String productTypeNameIndex) {
+        this.productTypeNameIndex = productTypeNameIndex;
+    }
+
+    public String getProductTypeIndex() {
+        return productTypeIndex;
+    }
+
+    public void setProductTypeIndex(String productTypeIndex) {
+        this.productTypeIndex = productTypeIndex;
+    }
+
+    public Integer getProductTypeId() {
+        return productTypeId;
+    }
+
+    public void setProductTypeId(Integer productTypeId) {
+        this.productTypeId = productTypeId;
+    }
+
     public String getProductIdIndex() {
         return productIdIndex;
     }

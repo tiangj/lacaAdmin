@@ -54,16 +54,15 @@
             </label>
 
 
-            <label class="layui-form-label">订单时间
+            <label class="layui-col-md3">订单时间
                  <input type="text" class="layui-input" id="beginDate" placeholder="yyyy-MM-dd" th:value="${beginDate}"/>--
                  <input type="text" class="layui-input" id="endDate" placeholder="yyyy-MM-dd" th:value="${endDate}"/>
-            </label>
             </label>
         </div>
     </div>
 </div>
 <xblock>
-    <button class="layui-btn"  onclick="x_admin_show('新增订单','lacaProductOrder/toAdd',900,750)">新增</button>
+    <button class="layui-btn"  onclick="x_admin_show('新增订单','lacaProductOrder/toAdd',1100,750)">新增</button>
 </xblock>
 <table class="layui-hide" id="LAY_table_productOrder" lay-filter="productOrder" ></table>
 </body>

@@ -239,6 +239,7 @@ function addProductItem() {
                     var productNumName="productNum_"+index;
 
                     html+='            <div class="layui-inline">' +
+                                        '<label class="layui-form-label">产品名称</label>'+
                         '                <div class="layui-input-block">' +
                         '                    <select id="'+selectName+'" name="'+selectName+'" lay-verify="required">' +
                         lacaProductListOption+
@@ -466,7 +467,7 @@ $(function () {
 
 
                     '            <div class="layui-inline">\n' +
-                    '                <label class="layui-form-label"></label>\n' +
+                    '                <label class="layui-form-label">产品名称</label>\n' +
                     '                <div class="layui-input-block">\n' +
                     '                    <select id="productId_1" name="productId_1" lay-verify="required">\n' +
                     lacaProductListOption+
@@ -497,6 +498,7 @@ $(function () {
 
 
                     '            <div class="layui-inline">' +
+                    '<label class="layui-form-label">产品名称</label>'+
                     '                <div class="layui-input-block">' +
                     '                    <select id="'+selectName+'" name="'+selectName+'" lay-verify="required">' +
                     lacaProductListOption+

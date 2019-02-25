@@ -21,6 +21,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -45,14 +46,21 @@ public class LacaProductOrderController {
     private ILacaProductOrderDetailService lacaProductOrderDetailService;
 
     @RequestMapping("list")
-    public String list(){
+    public String list(Model model){
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+        Date date=new Date();
+        model.addAttribute("endDate",sdf.format(date));
+        Calendar calendar=Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.DATE,-30);
+        model.addAttribute("beginDate",sdf.format(calendar.getTime()));
         return "order/list";
     }
 
     @ResponseBody
     @RequestMapping("listData")
     public Map<String,Object> listData(Integer page, Integer limit,String productName,String saleType,
-                                       String joinShop,String customerName,String designer){
+                                       String joinShop,String customerName,String designer,Date beginDate,Date endDate){
         Page<OrderDO> orderDOPage=new Page<>();
         orderDOPage.setLimit(limit);
         orderDOPage.setCurrent(page);
@@ -72,6 +80,13 @@ public class LacaProductOrderController {
         if(StringUtils.isNotBlank(designer)){
             orderDO.setDesigner(designer);
         }
+        if(beginDate!=null){
+            orderDO.setBeginDate(beginDate);
+        }
+        if(endDate!=null){
+            orderDO.setEndDate(endDate);
+        }
+
         Page<OrderDO> pageList=productOrderService.getAllOrderList(orderDOPage,orderDO);
         Map<String,Object> result=new HashMap<>();
         result.put("code",0);
@@ -208,5 +223,15 @@ public class LacaProductOrderController {
         return result;
     }
 
+    public static void main(String[] args) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date date=new Date();
+
+        Calendar calendar=Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.DATE,-30);
+        calendar.getTime();
+        System.out.println(sdf.format(calendar.getTime()));
+    }
 }
 

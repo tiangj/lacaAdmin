@@ -56,6 +56,14 @@
         <if test="productName!=null and productName!=''">
             and p.product_name like '%${productName}%'
         </if>
+        <if test="beginDate!=null">
+            and po.create_date >=#{beginDate}
+        </if>
+        <if test="endDate!=null">
+            <![CDATA[
+              and po.create_date <=#{endDate}
+            ]]>
+        </if>
         group by po.id order by po.create_date desc
     </select>
 

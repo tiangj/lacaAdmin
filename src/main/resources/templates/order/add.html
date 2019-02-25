@@ -59,10 +59,10 @@
     </div>
 
     <div class="productDiv" th:if="${exsitOrder>0}">
-        <input type="text" id="productNum" th:value="${exsitOrder}"/>
-        <input type="checkbox" name="productInfo" th:each="list,userStat:${lacaProductList}" th:checked="true" th:value="${list.id}" th:title="${list.productName}">
-        <input type="text"  th:each="list,userStat:${orderDetailList}" th:id="${list.productIdIndex}"   th:value="${list.productId}"/>
-        <input type="text"  th:each="list,userStat:${orderDetailList}" th:id="${list.productNameIndex}"  th:value="${list.productNum}" />
+        <input type="text" id="productNum" th:value="${exsitOrder}" style="display: none"/>
+        <input type="checkbox" name="productInfo" style="display: none"  th:each="list,userStat:${lacaProductList}" th:checked="true" th:value="${list.id}" th:title="${list.productName}">
+        <input type="text"  style="display: none" th:each="list,userStat:${orderDetailList}" th:id="${list.productIdIndex}"   th:value="${list.productId}"/>
+        <input type="text"  style="display: none" th:each="list,userStat:${orderDetailList}" th:id="${list.productNameIndex}"  th:value="${list.productNum}" />
     </div>
 
     <div class="layui-form-item">

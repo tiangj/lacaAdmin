@@ -3,6 +3,7 @@ package com.example.lacaPackage.DO;
 import com.example.lacaPackage.entity.LacaProductOrder;
 import com.example.lacaPackage.entity.LacaProductOrderDetail;
 
+import java.util.Date;
 import java.util.List;
 
 public class OrderDO extends LacaProductOrder {
@@ -18,6 +19,26 @@ public class OrderDO extends LacaProductOrder {
     private String productIds;
 
     private String productInfos;
+
+    private Date beginDate;
+
+    private Date endDate;
+
+    public Date getBeginDate() {
+        return beginDate;
+    }
+
+    public void setBeginDate(Date beginDate) {
+        this.beginDate = beginDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
 
     public String getProductIds() {
         return productIds;

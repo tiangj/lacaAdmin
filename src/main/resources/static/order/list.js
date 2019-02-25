@@ -2,6 +2,18 @@ var height = $(document.body).height() * 0.8;
 
 layui.use('table', function () {
     var table = layui.table;
+    var laydate = layui.laydate;
+
+    //常规用法
+    laydate.render({
+        elem: '#beginDate'
+    });
+
+    //常规用法
+    laydate.render({
+        elem: '#endDate'
+    });
+
     //方法级渲染
     table.render({
         elem: '#LAY_table_productOrder'
